@@ -1,0 +1,5 @@
+name: KeepInventoryPlugin
+version: '${project.version}'
+main: com.github.ricetech.keepinventoryplugin.KeepInventoryPlugin
+api-version: 1.19
+authors: [ the_ricetech ]
