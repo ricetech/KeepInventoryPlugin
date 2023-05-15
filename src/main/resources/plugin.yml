@@ -10,3 +10,7 @@ commands:
       select items to restore.
       Set the optional second option to 'true' to see the inventory yourself instead of showing it to the player.
     usage: "Usage: /restoreinventory <player>"
+    permission: rtki.base
+permissions:
+  rtki.base:
+    default: op
