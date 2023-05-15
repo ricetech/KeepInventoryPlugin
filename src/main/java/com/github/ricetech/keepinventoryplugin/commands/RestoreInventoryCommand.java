@@ -38,7 +38,7 @@ public class RestoreInventoryCommand implements CommandExecutor {
 
         if (args.length == 3 && Objects.equals(args[2], "true") && !(sender instanceof Player)) {
             KeepInventoryPlugin.sendErrorMsg(sender, "You cannot open an inventory from the command line. " +
-                    "Either run this command in-game, or allow the player to see their inventory by omitting the second option.");
+                    "Either run this command in-game, or allow the player to see their inventory by omitting the third option.");
             return true;
         } else {
              commandSender = (Player) sender;
@@ -65,7 +65,7 @@ public class RestoreInventoryCommand implements CommandExecutor {
         }
 
         if (invIndex < 0 || invIndex >= inventories.size()) {
-            KeepInventoryPlugin.sendErrorMsg(sender, "Target player only has "+ inventories.size() + " stored inventories." +
+            KeepInventoryPlugin.sendErrorMsg(sender, "Target player only has "+ inventories.size() + " stored inventories. " +
                     "Provide a number between 1 and " + inventories.size() + " for the second argument.");
             return true;
         }
