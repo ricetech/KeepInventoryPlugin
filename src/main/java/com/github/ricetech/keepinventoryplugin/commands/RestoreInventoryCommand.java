@@ -19,10 +19,6 @@ import java.util.Objects;
 public class RestoreInventoryCommand implements CommandExecutor {
     private final static Map<String, ItemStack[]> inventoryContents = new HashMap<>();
 
-    public static ItemStack[] getInventoryContents(String entry) {
-        return inventoryContents.getOrDefault(entry, null);
-    }
-
     public static void putInventory(String entry, ItemStack[] inventoryContents) {
         RestoreInventoryCommand.inventoryContents.put(entry, inventoryContents);
     }
