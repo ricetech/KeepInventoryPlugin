@@ -8,7 +8,8 @@ commands:
     description: >
       Offer a player's previous inventory (stored at the time when they died) to the player to allow them to
       select items to restore.
-      Set the optional second option to 'true' to see the inventory yourself instead of showing it to the player.
+      Provide a positive integer for the optional second option to see a death other than the most recent one (most recent is 1).
+      Set the optional third option to 'true' to see the inventory yourself instead of showing it to the player.
     usage: "Usage: /restoreinventory <player>"
     permission: rtki.base
 permissions:
