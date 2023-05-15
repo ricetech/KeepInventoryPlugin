@@ -7,7 +7,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -71,7 +70,7 @@ public class RestoreInventoryCommand implements CommandExecutor {
         }
         ItemStack[] inventoryContents = inventories.get(invIndex);
 
-        Inventory inventory = Bukkit.createInventory(null, InventoryType.PLAYER, Component.text("Your previous inventory"));
+        Inventory inventory = Bukkit.createInventory(null, 45, Component.text("Your previous inventory"));
         inventory.setContents(inventoryContents);
 
         if (args.length == 1 || args.length == 2 || !Objects.equals(args[2], "true")) {
