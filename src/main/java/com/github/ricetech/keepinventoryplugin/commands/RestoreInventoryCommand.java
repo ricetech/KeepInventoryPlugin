@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class RestoreInventoryCommand implements CommandExecutor {
     private final static Map<String, ItemStack[]> inventoryContents = new HashMap<>();
@@ -27,28 +28,42 @@ public class RestoreInventoryCommand implements CommandExecutor {
     }
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
-        if (args.length != 1) {
+        if (args.length != 1 && args.length != 2) {
             return false;
         }
 
-        Player p = Bukkit.getPlayerExact(args[0]);
+        Player targetPlayer = Bukkit.getPlayerExact(args[0]);
+        Player commandSender;
 
-        if (p == null) {
+        if (args.length == 2 && Objects.equals(args[1], "true") && !(sender instanceof Player)) {
+            KeepInventoryPlugin.sendErrorMsg(sender, "You cannot open an inventory from the command line. " +
+                    "Either run this command in-game, or allow the player to see their inventory by omitting the second option.");
+            return true;
+        } else {
+             commandSender = (Player) sender;
+        }
+
+        if (targetPlayer == null && (args.length == 1 || !Objects.equals(args[1], "true"))) {
             KeepInventoryPlugin.sendErrorMsg(sender, "Target player does not exist or is offline.");
             return true;
         }
 
-        ItemStack[] inventoryContents = RestoreInventoryCommand.inventoryContents.getOrDefault(p.getName(), null);
+        ItemStack[] inventoryContents = RestoreInventoryCommand.inventoryContents.getOrDefault(args[0], null);
 
         if (inventoryContents == null) {
-            KeepInventoryPlugin.sendErrorMsg(sender, "Target player does not have a stored inventory.");
+            KeepInventoryPlugin.sendErrorMsg(sender, "Target player does not have a stored inventory. Or they don't exist.");
             return true;
         }
 
         Inventory inventory = Bukkit.createInventory(null, InventoryType.PLAYER, Component.text("Your previous inventory"));
         inventory.setContents(inventoryContents);
 
-        p.openInventory(inventory);
+        if (args.length == 1 || !Objects.equals(args[1], "true")) {
+            assert targetPlayer != null; // Already checked above
+            targetPlayer.openInventory(inventory);
+        } else {
+            commandSender.openInventory(inventory);
+        }
 
         return true;
     }
