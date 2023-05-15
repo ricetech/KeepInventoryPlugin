@@ -22,6 +22,9 @@ public final class KeepInventoryPlugin extends JavaPlugin {
 
         // Commands
         this.getCommand(RESTORE_INVENTORY_COMMAND_ALIAS).setExecutor(new RestoreInventoryCommand());
+
+        // Tab Completers
+        this.getCommand(RESTORE_INVENTORY_COMMAND_ALIAS).setTabCompleter(new PluginTabCompleter());
     }
 
     @Override
