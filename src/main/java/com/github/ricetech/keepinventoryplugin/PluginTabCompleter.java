@@ -24,7 +24,7 @@ public class PluginTabCompleter implements TabCompleter {
         List<String> players = Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
 
         switch (alias) {
-            case KeepInventoryPlugin.RESTORE_INVENTORY_COMMAND_ALIAS -> tabComplete = Arrays.asList(players, Arrays.asList("true", "false"));
+            case KeepInventoryPlugin.RESTORE_INVENTORY_COMMAND_ALIAS -> tabComplete = Arrays.asList(players, List.of(""), Arrays.asList("true", "false"));
             default -> tabComplete = null;
         }
 
