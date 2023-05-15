@@ -8,19 +8,17 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 public class PlayerInventoryStorageListener implements Listener {
     @EventHandler
     public void storeInventoryOnDeath(PlayerDeathEvent event) {
         Player p = event.getEntity();
-        List<ItemStack> items = new ArrayList<>();
         PlayerInventory inventory = p.getInventory();
-        Collections.addAll(items, inventory.getContents());
-        Collections.addAll(items, inventory.getArmorContents());
-        //noinspection DataFlowIssue
-        RestoreInventoryCommand.putInventory(p.getName(), (ItemStack[]) items.toArray());
+        int numInvItems = inventory.getContents().length;
+        int numArmor = inventory.getArmorContents().length;
+        ItemStack[] items = new ItemStack[numInvItems + numArmor];
+        System.arraycopy(inventory.getContents(), 0, items, 0, numInvItems);
+        System.arraycopy(inventory.getArmorContents(), 0, items, numInvItems, numArmor);
+
+        RestoreInventoryCommand.putInventory(p.getName(), items);
     }
 }
