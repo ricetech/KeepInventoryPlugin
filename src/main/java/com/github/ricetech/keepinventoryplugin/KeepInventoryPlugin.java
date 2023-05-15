@@ -1,8 +1,10 @@
 package com.github.ricetech.keepinventoryplugin;
 
 import com.github.ricetech.keepinventoryplugin.commands.RestoreInventoryCommand;
+import com.github.ricetech.keepinventoryplugin.listeners.PlayerInventoryStorageListener;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,8 +16,12 @@ public final class KeepInventoryPlugin extends JavaPlugin {
         // Plugin startup logic
         getLogger().info("Keep Inventory Plugin enabled!");
 
-        this.getCommand(RESTORE_INVENTORY_COMMAND_ALIAS).setExecutor(new RestoreInventoryCommand());
+        // Listeners
+        PluginManager manager = getServer().getPluginManager();
+        manager.registerEvents(new PlayerInventoryStorageListener(), this);
 
+        // Commands
+        this.getCommand(RESTORE_INVENTORY_COMMAND_ALIAS).setExecutor(new RestoreInventoryCommand());
     }
 
     @Override
